@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+lecture_4/main.py
 
 # Django
 *.log
