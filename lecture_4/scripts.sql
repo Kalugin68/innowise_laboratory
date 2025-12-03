@@ -1,11 +1,11 @@
 -- 1. Create tables
-CREATE TABLE students (
+CREATE TABLE IF NOT EXISTS students (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     full_name TEXT NOT NULL,
     birth_year INTEGER NOT NULL
 );
 
-CREATE TABLE grades (
+CREATE TABLE IF NOT EXISTS grades (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER NOT NULL,
     subject TEXT NOT NULL,
@@ -15,11 +15,11 @@ CREATE TABLE grades (
 
 
 -- Create indexes for performance
-CREATE INDEX idx_students_full_name ON students(full_name);
-CREATE INDEX idx_students_birth_year ON students(birth_year);
+CREATE INDEX IF NOT EXISTS idx_students_full_name ON students(full_name);
+CREATE INDEX IF NOT EXISTS idx_students_birth_year ON students(birth_year);
 
-CREATE INDEX idx_grades_student_id ON grades(student_id);
-CREATE INDEX idx_grades_subject ON grades(subject);
+CREATE INDEX IF NOT EXISTS idx_grades_student_id ON grades(student_id);
+CREATE INDEX IF NOT EXISTS idx_grades_subject ON grades(subject);
 
 
 -- 2. Insert data (students)
@@ -48,7 +48,7 @@ INSERT INTO grades (student_id, subject, grade) VALUES
 
 
 -- 3. Find all grades for Alice Johnson
-SELECT s.full_name, g.subject, g.score
+SELECT s.full_name, g.subject, g.grade
 FROM students s
 JOIN grades g ON s.id = g.student_id
 WHERE s.full_name = 'Alice Johnson';
@@ -73,7 +73,7 @@ GROUP BY subject;
 
 
 -- 7. Find the top 3 students with the highest average grade
-SELECT s.full_name, AVG(g.grade) AS avg_grade
+SELECT s.full_name, AVG(g.grade) AS average_grade
 FROM students s
 JOIN grades g ON s.id = g.student_id
 GROUP BY s.id
